@@ -19,8 +19,8 @@ const Header = () => {
         >
           <span className="navbar-toggler-icon" />
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+        <div className="d-flex my-2 my-lg-0" id="navbarSupportedContent">
+          <ul className="navbar-nav me-auto mb-2 my-lg-0">
             <li className="nav-item">
               <NavLink
                 className="nav-link active"
