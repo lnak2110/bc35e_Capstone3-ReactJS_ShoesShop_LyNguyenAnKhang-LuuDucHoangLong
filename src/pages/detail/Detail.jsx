@@ -1,11 +1,11 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import { getProductDetailAction } from '../../redux/reducer/productReducer';
-import { getProductByIdApi } from '../../redux/reducer/productReducer';
-import ShoesCard from '../../components/ShoesCard';
+import React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { getProductDetailAction } from "../../redux/reducer/productReducer";
+import { getProductByIdApi } from "../../redux/reducer/productReducer";
+import ShoesCard from "../../components/ShoesCard";
 
 const Detail = () => {
   const { productDetail } = useSelector((state) => state.productReducer);
@@ -29,9 +29,19 @@ const Detail = () => {
         <div className="col-4">
           <img src={productDetail?.image} alt="" />
         </div>
-        <div className="col-8">
+        <div className="col-8 ml-5">
           <h3>{productDetail?.name}</h3>
-          <p>{productDetail?.price}</p>
+          <p>{productDetail?.description}</p>
+              {productDetail?.size?.map((item, index) => {
+                return (
+                  <button className="btn btn-dark p-1 m-1" key={index}>
+                    {item}
+                  </button>
+                );
+              })}
+          <p className="text-danger font-weight-bold">
+            {productDetail?.price} $
+          </p>
           <button className="btn btn-success">
             Add to Cart <i className="fa fa-cart-plus"></i>
           </button>
