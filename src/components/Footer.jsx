@@ -1,10 +1,9 @@
-import React from "react";
-import "./_footer.scss";
+import React from 'react';
 
 const Footer = () => {
   return (
-    <div classname="row d-flex">
-      <div classname="col-4">
+    <div className="row d-flex">
+      <div className="col-4">
         <h3>GET HELP</h3>
         <ul>
           <li>Home</li>
@@ -13,7 +12,7 @@ const Footer = () => {
           <li>Contact</li>
         </ul>
       </div>
-      <div classname="col-4">
+      <div className="col-4">
         <h3>SUPPORT</h3>
         <ul>
           <li>About</li>
@@ -22,7 +21,7 @@ const Footer = () => {
           <li>Phone</li>
         </ul>
       </div>
-      <div classname="col-4">
+      <div className="col-4">
         <h3>REGISTER</h3>
         <ul>
           <li>Register</li>

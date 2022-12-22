@@ -1,21 +1,20 @@
-import React, { useEffect } from "react";
-import { Carousel } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import ShoesCard from "../../assets/scss/components/Card/ShoesCard";
-import axios from "axios";
+import React, { useEffect } from 'react';
+import { Carousel } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 import {
   getAllProductApi,
   getProductAction,
-} from "../../redux/reducer/productReducer";
-import '../../assets/scss/components/Carousel/_carousel.scss'
+} from '../../redux/reducer/productReducer';
+import ShoesCard from '../../components/ShoesCard';
 
-const contentStyle: React.CSSProperties = {
+const contentStyle = {
   margin: 0,
-  height: "600px",
-  color: "#999",
-  lineHeight: "160px",
-  textAlign: "center",
-  background: "#fff",
+  height: '600px',
+  color: '#999',
+  lineHeight: '160px',
+  textAlign: 'center',
+  background: '#fff',
 };
 
 const Home = () => {
@@ -25,7 +24,7 @@ const Home = () => {
     console.log(currentSlide);
   };
 
-  console.log("arrProduct: ", arrProduct);
+  console.log('arrProduct: ', arrProduct);
 
   const dispatch = useDispatch();
 
@@ -34,15 +33,13 @@ const Home = () => {
     dispatch(action2);
   };
 
- 
-
   useEffect(() => {
     getAllProduct();
   }, []);
 
   return (
     <>
-      <Carousel afterChange={onChange} autoplay={true} effect={"scroll"}>
+      <Carousel afterChange={onChange} autoplay={true} effect={'scroll'}>
         {arrProduct.slice(0, 4).map((item, index) => {
           return (
             <div key={index}>

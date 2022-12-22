@@ -1,11 +1,11 @@
-import React from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import ShoesCard from "../../assets/scss/components/Card/ShoesCard";
-import axios from "axios";
-import { getProductDetailAction } from "../../redux/reducer/productReducer";
-import { getProductByIdApi } from "../../redux/reducer/productReducer";
+import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { getProductDetailAction } from '../../redux/reducer/productReducer';
+import { getProductByIdApi } from '../../redux/reducer/productReducer';
+import ShoesCard from '../../components/ShoesCard';
 
 const Detail = () => {
   const { productDetail } = useSelector((state) => state.productReducer);

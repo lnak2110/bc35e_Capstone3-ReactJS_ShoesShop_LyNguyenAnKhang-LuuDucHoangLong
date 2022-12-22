@@ -1,12 +1,12 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to='index'>
-          <img src="./img/logo.png" alt />
+        <NavLink className="navbar-brand" to="index">
+          <img src="./img/logo.png" alt="..." />
         </NavLink>
         <button
           className="navbar-toggler"
@@ -27,7 +27,7 @@ const Header = () => {
                 aria-current="page"
                 to="/search"
               >
-                <i class="fa-solid fa-magnifying-glass"></i> Search
+                <i className="fa-solid fa-magnifying-glass"></i> Search
               </NavLink>
             </li>
             <li className="nav-item">
@@ -62,6 +62,6 @@ const Header = () => {
       </div>
     </nav>
   );
-}
+};
 
-export default Header
+export default Header;
