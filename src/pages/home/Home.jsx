@@ -39,7 +39,7 @@ const Home = () => {
 
   return (
     <>
-      <Carousel afterChange={onChange} autoplay={true} effect={'scroll'}>
+      <Carousel afterChange={onChange} autoplay={true} effect={"scroll"}>
         {arrProduct.slice(0, 4).map((item, index) => {
           return (
             <div key={index}>
@@ -55,15 +55,17 @@ const Home = () => {
           );
         })}
       </Carousel>
-      <h3>Product Feature</h3>
-      <div className="row">
-        {arrProduct.map((prod, idx) => {
-          return (
-            <div className="col-4" key={prod.id}>
-              <ShoesCard prod={prod} />
-            </div>
-          );
-        })}
+      <div className="container">
+        <h3>Product Feature</h3>
+        <div className="row">
+          {arrProduct.map((prod, idx) => {
+            return (
+              <div className="col-4" key={prod.id}>
+                <ShoesCard prod={prod} />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </>
   );
