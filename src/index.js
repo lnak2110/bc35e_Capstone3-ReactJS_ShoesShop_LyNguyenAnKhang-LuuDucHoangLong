@@ -6,7 +6,7 @@ import './assets/scss/main.scss';
 import { Provider } from 'react-redux';
 import { store } from './redux/configStore';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import HomeTemplate from './templates/homeTemplate/HomeTemplate';
+import HomeTemplate from './templates/hometemplate/HomeTemplate';
 import Home from './pages/home/Home';
 import Detail from './pages/detail/Detail';
 import Profile from './pages/profile/Profile';

@@ -21,4 +21,12 @@
         border-color: $gray-1 !important;
         border-radius: 0 !important;
     }
+
+    .like{
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        right: 30px;
+        top: 30px;
+    }
 }
