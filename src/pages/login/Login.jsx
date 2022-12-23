@@ -1,5 +1,5 @@
-import React from 'react'
-import {NavLink} from 'react-router-dom'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Login = () => {
   return (
@@ -32,13 +32,13 @@ const Login = () => {
           </div>
           <div className="form-group">
             <button type="submit" className="btn btn-primary">
-              <i class="fa-brands fa-facebook"></i> Continue with Facebook
+              <i className="fa-brands fa-facebook"></i> Continue with Facebook
             </button>
           </div>
         </form>
       </div>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;
