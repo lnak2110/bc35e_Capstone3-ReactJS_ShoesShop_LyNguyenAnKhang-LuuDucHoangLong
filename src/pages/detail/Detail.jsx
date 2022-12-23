@@ -24,31 +24,35 @@ const Detail = () => {
   }, [params.id]);
   console.log(productDetail);
   return (
-    <div className="container">
+    <div className="container detail">
       <div className="row mt-5">
         <div className="col-4">
           <img src={productDetail?.image} alt="" />
         </div>
-        <div className="col-8 ml-5">
+        <div className="col-8 product_info">
           <h3>{productDetail?.name}</h3>
-          <p>{productDetail?.description}</p>
+          <p className="w-50">{productDetail?.description}</p>
+          <p className="available_size">Available Size</p>
           {productDetail?.size?.map((item, index) => {
             return (
-              <button className="btn btn-dark p-1 m-1" key={index}>
+              <button className="btn btn-dark size" key={index}>
                 {item}
               </button>
             );
           })}
-          <p className="text-danger font-weight-bold">
-            $ {productDetail?.price}
-          </p>
-          <NavLink className="btn btn-success" to={'/cart'}>
-            Add to Cart <i className="fa fa-cart-plus"></i>
+          <p className="text-danger price">$ {productDetail?.price}</p>
+          <div className="d-flex">
+            <button className="btn btn_qual">+</button>
+            <p className="quantity">1</p>
+            <button className="btn btn_qual">-</button>
+          </div>
+          <NavLink className="btn btn-success add" to={"/cart"}>
+            Add to Cart
           </NavLink>
         </div>
       </div>
-      <div className="mt-2">
-        <h3>Related Product</h3>
+      <div className="mt-3 text-center">
+        <h1 className='mb-5'>- Related Product -</h1>
         <div className="row">
           {productDetail?.relatedProducts?.map((item, index) => {
             return (
