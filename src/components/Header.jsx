@@ -1,7 +1,23 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const { userLogin } = useSelector((state) => state.userReducer);
+  const renderLogin = () => {
+    if (userLogin) {
+      return (
+        <NavLink classname="{nav-link}" to="/profile">
+          Hello {userLogin.email}
+        </NavLink>
+      );
+    }
+    return (
+        <NavLink className="nav-link active" aria-current="page" to="/login">
+          Login
+        </NavLink>
+    );
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -39,15 +55,7 @@ const Header = () => {
                 <i className="fa-solid fa-cart-plus"></i> (1)
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/login"
-              >
-                Login
-              </NavLink>
-            </li>
+            <li className="nav-item">{renderLogin()}</li>
             <li className="nav-item">
               <NavLink
                 className="nav-link active"
