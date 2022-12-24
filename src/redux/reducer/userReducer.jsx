@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const initialState = {
   newUser: {},
+  userLogin: null,
 };
 
 const userReducer = createSlice({
@@ -12,10 +13,13 @@ const userReducer = createSlice({
     registerAction: (state, action) => {
       state.newUser = action.payload;
     },
+    loginAction: (state, action) => {
+      state.userLogin = action.payload;
+    }
   },
 });
 
-export const { registerAction } = userReducer.actions;
+export const { registerAction, loginAction } = userReducer.actions;
 
 export default userReducer.reducer;
 
@@ -35,3 +39,19 @@ export const registerApi = (newUserData) => {
     }
   };
 };
+
+export const loginApi = (userLogin) => {
+  return async (dispatch) => {
+    try {
+      const result = await axios({
+        url: "https://shop.cyberlearn.vn/api/Users/signin",
+        method: "POST",
+        data: userLogin,
+      });
+      const action = loginAction(result.data.content);
+      dispatch(action);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
