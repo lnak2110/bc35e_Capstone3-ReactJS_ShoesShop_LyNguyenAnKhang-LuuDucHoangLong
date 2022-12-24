@@ -3,12 +3,18 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { getProductDetailAction } from '../../redux/reducer/productReducer';
+import {
+  changeProductAmountAction,
+  getProductDetailAction,
+} from '../../redux/reducer/productReducer';
 import { getProductByIdApi } from '../../redux/reducer/productReducer';
 import ShoesCard from '../../components/ShoesCard';
+import { addToCartAction } from '../../redux/reducer/cartReducer';
 
 const Detail = () => {
-  const { productDetail } = useSelector((state) => state.productReducer);
+  const { productDetail, productAmount } = useSelector(
+    (state) => state.productReducer
+  );
 
   const dispatch = useDispatch();
 
@@ -22,6 +28,20 @@ const Detail = () => {
   useEffect(() => {
     getProductById();
   }, [params.id]);
+
+  const changeProductAmount = (num) => {
+    dispatch(changeProductAmountAction(num));
+  };
+
+  const addToCart = () => {
+    dispatch(
+      addToCartAction({
+        ...productDetail,
+        productAmount,
+      })
+    );
+  };
+
   console.log(productDetail);
   return (
     <div className="container detail">
@@ -42,17 +62,31 @@ const Detail = () => {
           })}
           <p className="text-danger price">$ {productDetail?.price}</p>
           <div className="d-flex">
-            <button className="btn btn_qual">+</button>
-            <p className="quantity">1</p>
-            <button className="btn btn_qual">-</button>
+            <button
+              className="btn btn_qual"
+              onClick={() => changeProductAmount(1)}
+            >
+              +
+            </button>
+            <p className="quantity">{productAmount}</p>
+            <button
+              className="btn btn_qual"
+              onClick={() => changeProductAmount(-1)}
+            >
+              -
+            </button>
           </div>
-          <NavLink className="btn btn-success add" to={"/cart"}>
+          <NavLink
+            className="btn btn-success add"
+            to={'/cart'}
+            onClick={addToCart}
+          >
             Add to Cart
           </NavLink>
         </div>
       </div>
       <div className="mt-3 text-center">
-        <h1 className='mb-5'>- Related Product -</h1>
+        <h1 className="mb-5">- Related Product -</h1>
         <div className="row">
           {productDetail?.relatedProducts?.map((item, index) => {
             return (

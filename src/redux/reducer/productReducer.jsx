@@ -1,25 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
   arrProduct: [
     {
       id: 1,
-      name: "nike 1",
+      name: 'nike 1',
       price: 1000,
-      image: "https://picsum.photos/id/1/200/200",
+      image: 'https://picsum.photos/id/1/200/200',
     },
   ],
   productDetail: {
     id: 1,
-    name: "nike 1",
+    name: 'nike 1',
     price: 1000,
-    image: "https://picsum.photos/id/1/200/200",
+    image: 'https://picsum.photos/id/1/200/200',
   },
+  productAmount: 1,
 };
 
 const productReducer = createSlice({
-  name: "productReducer", //tên của reducer
+  name: 'productReducer', //tên của reducer
   initialState, //giá trị state ban đầu (default)
   reducers: {
     getProductAction: (state, action) => {
@@ -28,19 +29,29 @@ const productReducer = createSlice({
     getProductDetailAction: (state, action) => {
       state.productDetail = action.payload;
     },
+    changeProductAmountAction: (state, { payload }) => {
+      if (state.productAmount === 1 && payload === -1) {
+        state.productAmount += 0;
+        return;
+      }
+      state.productAmount += payload;
+    },
   },
 });
 
-export const { getProductAction, getProductDetailAction } =
-  productReducer.actions;
+export const {
+  getProductAction,
+  getProductDetailAction,
+  changeProductAmountAction,
+} = productReducer.actions;
 
 export default productReducer.reducer;
 
 // async action
 export const getAllProductApi = async (dispatch2) => {
   const result = await axios({
-    url: "https://shop.cyberlearn.vn/api/Product",
-    method: "GET",
+    url: 'https://shop.cyberlearn.vn/api/Product',
+    method: 'GET',
   });
   const action = getProductAction(result.data.content);
   dispatch2(action);
@@ -51,7 +62,7 @@ export const getProductByIdApi = (id) => {
   return async (dispatch) => {
     const result = await axios({
       url: `https://shop.cyberlearn.vn/api/Product/getbyid?id=${id}`,
-      method: "GET",
+      method: 'GET',
     });
     // Sau khi có được dữ liệu từ API, dispatch lần 2 lên reducer
     const action = getProductDetailAction(result.data.content);
