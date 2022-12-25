@@ -2,4 +2,32 @@
   &__title {
     border-bottom: 1px solid $gray-1;
   }
+
+  .quantity {
+    background-color: $gray-3;
+    padding: 0 32px;
+  }
+
+  .btn-quantity {
+    padding: 5px 12px;
+    border-radius: 5px;
+    border: none;
+    background-color: $blue-1;
+    color: $white-1;
+  }
+
+  .btn-delete {
+    text-transform: uppercase;
+    padding: 10px 25px;
+    border-radius: 5px;
+    border: none;
+    background-color: $red-4;
+    color: $white-1;
+  }
+
+  .table-info {
+    td {
+      padding: 15px 0;
+    }
+  }
 }

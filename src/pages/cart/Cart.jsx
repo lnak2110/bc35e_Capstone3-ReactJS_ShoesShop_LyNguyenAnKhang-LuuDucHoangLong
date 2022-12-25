@@ -1,8 +1,24 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  calculateTotalsAction,
+  changeProductQuantityAction,
+  deleteProductAction,
+} from '../../redux/reducer/cartReducer';
 
 const Cart = () => {
-  const { cartProducts } = useSelector((state) => state.cartReducer);
+  const { cartProducts, cartAmount, cartTotalPrice } = useSelector(
+    (state) => state.cartReducer
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(calculateTotalsAction());
+  }, [cartProducts]);
+
+  const changeProductQuantity = (id, num) => {
+    dispatch(changeProductQuantityAction({ id, num }));
+  };
 
   return (
     <section className="cart">
@@ -22,7 +38,7 @@ const Cart = () => {
           </thead>
           <tbody>
             {cartProducts.map((product) => (
-              <tr key={product.id}>
+              <tr key={product.id} className="align-middle">
                 <td>{product.id}</td>
                 <td style={{ width: 120 }}>
                   <img
@@ -32,18 +48,44 @@ const Cart = () => {
                   />
                 </td>
                 <td className="align-middle">{product.name}</td>
-                <td className="align-middle">{product.price}</td>
+                <td className="align-middle">$ {product.price}</td>
                 <td className="align-middle">
-                  <button>+</button>
-                  <span className="bg-light px-3">{product.amount}</span>
-                  <button>-</button>
+                  <button
+                    className="btn-quantity"
+                    onClick={() => changeProductQuantity(product.id, 1)}
+                  >
+                    +
+                  </button>
+                  <span className="quantity py-1 mx-3">{product.amount}</span>
+                  <button
+                    className="btn-quantity"
+                    onClick={() => changeProductQuantity(product.id, -1)}
+                  >
+                    -
+                  </button>
                 </td>
                 <td className="align-middle">
-                  {product.price * product.amount}
+                  $ {product.price * product.amount}
                 </td>
-                <td className="align-middle"></td>
+                <td className="align-middle">
+                  <button
+                    className="btn-delete"
+                    onClick={() => dispatch(deleteProductAction(product.id))}
+                  >
+                    delete
+                  </button>
+                </td>
               </tr>
             ))}
+            <tr class="table-info">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>{cartAmount}</td>
+              <td>$ {cartTotalPrice}</td>
+              <td></td>
+            </tr>
           </tbody>
         </table>
       </div>
