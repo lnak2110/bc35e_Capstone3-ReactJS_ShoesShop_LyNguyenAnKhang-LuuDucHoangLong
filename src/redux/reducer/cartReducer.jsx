@@ -3,6 +3,15 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   cartProducts: [],
   cartAmount: 0,
+  cartTotalPrice: 0,
+};
+
+const deleteProduct = (state, productID) => {
+  if (
+    window.confirm(`Do you want to remove the product with ID ${productID}?`)
+  ) {
+    state.cartProducts = state.cartProducts.filter((p) => p.id !== productID);
+  }
 };
 
 const cartReducer = createSlice({
@@ -10,9 +19,7 @@ const cartReducer = createSlice({
   initialState,
   reducers: {
     addToCartAction: (state, action) => {
-      // state.cartProducts = action.payload;
       const product = action.payload;
-      console.log(product);
       const productFound = state.cartProducts.find((p) => p.id === product.id);
 
       if (productFound) {
@@ -21,9 +28,42 @@ const cartReducer = createSlice({
         state.cartProducts.push(product);
       }
     },
+    changeProductQuantityAction: (state, action) => {
+      const { id, num } = action.payload;
+      const productFound = state.cartProducts.find((p) => p.id === id);
+
+      if (productFound) {
+        if (productFound.amount === 1 && num === -1) {
+          deleteProduct(state, productFound.id);
+          return;
+        }
+
+        productFound.amount += num;
+      }
+    },
+    deleteProductAction: (state, action) => {
+      deleteProduct(state, action.payload);
+    },
+    calculateTotalsAction: (state) => {
+      let amount = 0;
+      let totalPrice = 0;
+
+      state.cartProducts.forEach((product) => {
+        amount += product.amount;
+        totalPrice += product.amount * product.price;
+      });
+
+      state.cartAmount = amount;
+      state.cartTotalPrice = totalPrice;
+    },
   },
 });
 
-export const { addToCartAction } = cartReducer.actions;
+export const {
+  addToCartAction,
+  changeProductQuantityAction,
+  deleteProductAction,
+  calculateTotalsAction,
+} = cartReducer.actions;
 
 export default cartReducer.reducer;

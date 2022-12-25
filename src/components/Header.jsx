@@ -1,9 +1,11 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
   const { userLogin } = useSelector((state) => state.userReducer);
+  const { cartAmount } = useSelector((state) => state.cartReducer);
+
   const renderLogin = () => {
     if (userLogin) {
       return (
@@ -13,9 +15,9 @@ const Header = () => {
       );
     }
     return (
-        <NavLink className="nav-link active" aria-current="page" to="/login">
-          Login
-        </NavLink>
+      <NavLink className="nav-link active" aria-current="page" to="/login">
+        Login
+      </NavLink>
     );
   };
   return (
@@ -52,7 +54,7 @@ const Header = () => {
                 aria-current="page"
                 to="/cart"
               >
-                <i className="fa-solid fa-cart-plus"></i> (1)
+                <i className="fa-solid fa-cart-plus"></i> ({cartAmount})
               </NavLink>
             </li>
             <li className="nav-item">{renderLogin()}</li>
