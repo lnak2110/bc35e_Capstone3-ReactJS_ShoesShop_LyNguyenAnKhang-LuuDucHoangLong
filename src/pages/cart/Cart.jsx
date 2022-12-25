@@ -77,7 +77,7 @@ const Cart = () => {
                 </td>
               </tr>
             ))}
-            <tr class="table-info">
+            <tr className="table-info">
               <td></td>
               <td></td>
               <td></td>
