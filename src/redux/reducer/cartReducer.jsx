@@ -11,13 +11,14 @@ const cartReducer = createSlice({
   reducers: {
     addToCartAction: (state, action) => {
       // state.cartProducts = action.payload;
-      const { id: productId, productAmount } = action.payload;
-      const product = state.cartProducts.find((id) => id === productId);
+      const product = action.payload;
+      console.log(product);
+      const productFound = state.cartProducts.find((p) => p.id === product.id);
 
-      if (!product) {
-        state.cartProducts.push({ ...product, amount: productAmount });
+      if (productFound) {
+        productFound.amount += product.amount;
       } else {
-        product.amount += productAmount;
+        state.cartProducts.push(product);
       }
     },
   },
