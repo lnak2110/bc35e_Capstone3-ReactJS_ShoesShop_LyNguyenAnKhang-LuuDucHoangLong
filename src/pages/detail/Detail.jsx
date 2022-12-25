@@ -6,6 +6,7 @@ import axios from 'axios';
 import {
   changeProductAmountAction,
   getProductDetailAction,
+  resetProductAmountAction,
 } from '../../redux/reducer/productReducer';
 import { getProductByIdApi } from '../../redux/reducer/productReducer';
 import ShoesCard from '../../components/ShoesCard';
@@ -27,6 +28,7 @@ const Detail = () => {
 
   useEffect(() => {
     getProductById();
+    dispatch(resetProductAmountAction());
   }, [params.id]);
 
   const changeProductAmount = (num) => {
@@ -37,7 +39,7 @@ const Detail = () => {
     dispatch(
       addToCartAction({
         ...productDetail,
-        productAmount,
+        amount: productAmount,
       })
     );
   };

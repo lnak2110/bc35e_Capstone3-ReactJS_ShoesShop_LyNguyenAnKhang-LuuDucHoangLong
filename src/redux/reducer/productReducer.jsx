@@ -36,6 +36,7 @@ const productReducer = createSlice({
       }
       state.productAmount += payload;
     },
+    resetProductAmountAction: (state) => ({ ...state, productAmount: 1 }),
   },
 });
 
@@ -43,6 +44,7 @@ export const {
   getProductAction,
   getProductDetailAction,
   changeProductAmountAction,
+  resetProductAmountAction,
 } = productReducer.actions;
 
 export default productReducer.reducer;
