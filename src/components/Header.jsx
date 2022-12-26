@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { calculateTotalsAction } from '../redux/reducer/cartReducer';
 
 const Header = () => {
   const { userLogin } = useSelector((state) => state.userReducer);
-  const { cartAmount } = useSelector((state) => state.cartReducer);
+  const { cartProducts, cartAmount } = useSelector(
+    (state) => state.cartReducer
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userLogin) {
+      dispatch(calculateTotalsAction());
+    }
+  }, [cartProducts]);
 
   const renderLogin = () => {
     if (userLogin) {
       return (
-        <NavLink classname="{nav-link}" to="/profile">
+        <NavLink className="{nav-link}" to="/profile">
           Hello {userLogin.email}
         </NavLink>
       );

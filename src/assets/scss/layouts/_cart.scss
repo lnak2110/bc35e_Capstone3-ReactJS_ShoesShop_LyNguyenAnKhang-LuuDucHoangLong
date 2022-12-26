@@ -25,6 +25,13 @@
     color: $white-1;
   }
 
+  .btn-order,
+  .btn-home {
+    @extend .btn-delete;
+    background-color: $yellow-3;
+    text-decoration: none;
+  }
+
   .table-info {
     td {
       padding: 15px 0;

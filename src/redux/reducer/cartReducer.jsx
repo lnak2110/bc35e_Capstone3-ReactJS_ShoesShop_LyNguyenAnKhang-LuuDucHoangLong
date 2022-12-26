@@ -44,6 +44,9 @@ const cartReducer = createSlice({
     deleteProductAction: (state, action) => {
       deleteProduct(state, action.payload);
     },
+    clearCartAction: (state) => {
+      state.cartProducts = [];
+    },
     calculateTotalsAction: (state) => {
       let amount = 0;
       let totalPrice = 0;
@@ -63,6 +66,7 @@ export const {
   addToCartAction,
   changeProductQuantityAction,
   deleteProductAction,
+  clearCartAction,
   calculateTotalsAction,
 } = cartReducer.actions;
 
