@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import {
   changeProductAmountAction,
@@ -13,12 +13,12 @@ import ShoesCard from '../../components/ShoesCard';
 import { addToCartAction } from '../../redux/reducer/cartReducer';
 
 const Detail = () => {
+  const { userLogin } = useSelector((state) => state.userReducer);
   const { productDetail, productAmount } = useSelector(
     (state) => state.productReducer
   );
 
   const dispatch = useDispatch();
-
   const params = useParams();
 
   const getProductById = async () => {
@@ -36,15 +36,16 @@ const Detail = () => {
   };
 
   const addToCart = () => {
-    dispatch(
-      addToCartAction({
-        ...productDetail,
-        amount: productAmount,
-      })
-    );
+    if (userLogin) {
+      dispatch(
+        addToCartAction({
+          ...productDetail,
+          amount: productAmount,
+        })
+      );
+    }
   };
 
-  console.log(productDetail);
   return (
     <div className="container detail">
       <div className="row mt-5">
@@ -78,13 +79,9 @@ const Detail = () => {
               -
             </button>
           </div>
-          <NavLink
-            className="btn btn-success add"
-            to={'/cart'}
-            onClick={addToCart}
-          >
+          <button className="btn btn-success add" onClick={addToCart}>
             Add to Cart
-          </NavLink>
+          </button>
         </div>
       </div>
       <div className="mt-3 text-center">
