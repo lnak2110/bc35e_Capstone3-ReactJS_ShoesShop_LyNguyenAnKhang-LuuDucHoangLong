@@ -19,9 +19,13 @@ const Header = () => {
   const renderLogin = () => {
     if (userLogin) {
       return (
-        <NavLink className="{nav-link}" to="/profile">
-          Hello {userLogin.email}
-        </NavLink>
+        <li classname="nav-item">
+  <NavLink classname="nav-link text-light" to="/profile">
+    Hello {userLogin.email}
+  </NavLink>
+</li>
+
+
       );
     }
     return (
@@ -67,7 +71,7 @@ const Header = () => {
                 <i className="fa-solid fa-cart-plus"></i> ({cartAmount})
               </NavLink>
             </li>
-            <li className="nav-item">{renderLogin()}</li>
+            {renderLogin()}
             <li className="nav-item">
               <NavLink
                 className="nav-link active"
