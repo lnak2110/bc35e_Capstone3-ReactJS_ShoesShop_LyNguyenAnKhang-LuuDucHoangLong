@@ -7,7 +7,7 @@ const HomeTemplate = () => {
   return (
     <>
       <Header />
-      <section className="content" style={{ minHeight: '70vh' }}>
+      <section className="content" style={{ minHeight: '65vh' }}>
         <Outlet />
       </section>
       <Footer />
