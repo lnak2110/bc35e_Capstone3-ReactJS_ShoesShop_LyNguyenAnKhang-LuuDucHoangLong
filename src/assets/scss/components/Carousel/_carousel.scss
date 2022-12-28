@@ -3,19 +3,27 @@
 
     .home_description{
         position: absolute;
-        top: 10% !important;
+        // top: 10% !important;
     }
 
-    .home_to_detail{
-        width: 150px;
-        height: 50px;
-        background: #F8B653;
-        border-radius: 0;
-        font-weight: 300;
-        font-size: 20px;
-        line-height: 24px;
-        color: #FFFFFF !important;
-        text-decoration: none !important;
-        margin-top: 10%;
+    .carousel_right{
+
+        .carousel_right_content{
+            padding-top: 5%;
+
+            .home_to_detail {
+                    width: 150px;
+                    height: 50px;
+                    position: absolute;
+                    background: #F8B653;
+                    border-radius: 0;
+                    font-weight: 300;
+                    font-size: 20px;
+                    line-height: 24px;
+                    color: #FFFFFF !important;
+                    text-decoration: none !important;
+                    margin-top: 10%;
+                }
+        }
     }
 }
