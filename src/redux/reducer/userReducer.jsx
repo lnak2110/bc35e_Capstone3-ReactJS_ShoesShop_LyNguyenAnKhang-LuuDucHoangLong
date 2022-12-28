@@ -11,6 +11,7 @@ import {
 const initialState = {
   newUser: {},
   userLogin: null,
+  profile: null,
 };
 
 const userReducer = createSlice({
@@ -23,10 +24,21 @@ const userReducer = createSlice({
     loginAction: (state, action) => {
       state.userLogin = action.payload;
     },
+    getProfileAction: (state, action) => {
+      state.profile = action.payload;
+    },
+    updateProfileAction: (state, action) => {
+      state.profile = action.payload;
+    },
   },
 });
 
-export const { registerAction, loginAction } = userReducer.actions;
+export const {
+  registerAction,
+  loginAction,
+  getProfileAction,
+  updateProfileAction,
+} = userReducer.actions;
 
 export default userReducer.reducer;
 
@@ -49,9 +61,8 @@ export const registerApi = (newUserData) => {
 
 export const loginApi = (userLogin) => {
   return async (dispatch) => {
-    const result = await http.post(`/api/Users/signin`, userLogin);
-
     try {
+      const result = await http.post(`/api/Users/signin`, userLogin);
       const action = loginAction(result.data.content);
       dispatch(action);
 
@@ -65,10 +76,26 @@ export const loginApi = (userLogin) => {
 
 export const getProfileApi = () => {
   return async (dispatch) => {
-    let result = await http.post(`/api/Users/getProfile`);
-    console.log(result);
-    //Sau khi call api profile đưa lên reducer
-    // const action = getProfileAction(result.data.content);
-    // dispatch(action);
+    try {
+      const result = await http.post(`/api/Users/getProfile`);
+      console.log(result);
+      const action = getProfileAction(result.data.content);
+      dispatch(action);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const updateProfileApi = (updatedData) => {
+  return async (dispatch) => {
+    try {
+      const result = await http.post(`/api/Users/updateProfile`, updatedData);
+      console.log(result);
+      const action = updateProfileAction(result.data.content);
+      dispatch(action);
+    } catch (error) {
+      console.log(error);
+    }
   };
 };

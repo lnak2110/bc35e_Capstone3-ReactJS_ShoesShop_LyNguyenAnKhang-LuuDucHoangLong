@@ -11,8 +11,8 @@ export const TOKEN_CYBER =
 export const {
   setStore,
   setStoreJson,
-  layStore,
-  layStoreJson,
+  getStore,
+  getStoreJson,
   eraseStore,
   setCookie,
   getCookie,
@@ -25,13 +25,13 @@ export const {
     const data = JSON.stringify(jsonData);
     localStorage.setItem(name, data);
   },
-  layStore: (name) => {
+  getStore: (name) => {
     if (localStorage.getItem(name)) {
       return localStorage.getItem(name);
     }
     return null;
   },
-  layStoreJson: (name) => {
+  getStoreJson: (name) => {
     if (localStorage.getItem(name)) {
       return JSON.parse(localStorage.getItem(name));
     }
@@ -99,8 +99,8 @@ http.interceptors.response.use(
       //chuyển hướng về home
       history.push('/');
     }
-    if (err.response?.status === 401 || err.response.status === 403) {
-      const isMyTokenExpired = isExpired(layStore(TOKEN));
+    if (err.response?.status === 401 || err.response?.status === 403) {
+      const isMyTokenExpired = isExpired(getStore(TOKEN));
       //token hết hạn
       if (isMyTokenExpired) {
         alert('Hết phiên đăng nhập yêu cầu đăng nhập lại!');

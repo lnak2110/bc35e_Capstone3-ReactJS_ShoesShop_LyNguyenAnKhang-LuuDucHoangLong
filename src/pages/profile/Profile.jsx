@@ -1,21 +1,29 @@
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
-import { getProfileApi } from '../../redux/reducer/userReducer';
+import {
+  getProfileApi,
+  updateProfileApi,
+} from '../../redux/reducer/userReducer';
 
 const Profile = () => {
-  const [passwordType, setPasswordType] = useState(true);
+  const { profile } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
+  // console.log(profile);
+
+  useEffect(() => {
+    dispatch(getProfileApi());
+  }, []);
+
+  const { email, name, phone, gender } = profile || '';
 
   const frm = useFormik({
     initialValues: {
-      email: '',
-      password: '',
-      confirmPassword: '',
-      name: '',
-      phone: '',
-      gender: true,
+      email: email || '',
+      name: name || '',
+      phone: phone || '',
+      gender: gender,
     },
     enableReinitialize: true,
     validationSchema: yup.object().shape({
@@ -24,12 +32,7 @@ const Profile = () => {
         .trim()
         .required('Email cannot be blank!')
         .email('Email is invalid!'),
-      password: yup
-        .string()
-        .trim()
-        .required('Password cannot be blank!')
-        .min(6, 'Password must be between 6 - 10 characters!')
-        .max(10, 'Password must be between 6 - 10 characters!'),
+
       name: yup.string().trim().required('Name cannot be blank!'),
       phone: yup
         .string()
@@ -42,10 +45,11 @@ const Profile = () => {
     }),
     onSubmit: (values) => {
       console.log(values);
+      dispatch(updateProfileApi(values));
     },
   });
+  console.log(gender === true);
 
-  dispatch(getProfileApi());
   return (
     <section className="profile">
       <h1 className="profile__title my-4 py-3 ps-3">Profile</h1>
@@ -67,6 +71,7 @@ const Profile = () => {
                         type="email"
                         id="email"
                         placeholder="email"
+                        value={frm.values.email}
                         onChange={frm.handleChange}
                         onBlur={frm.handleBlur}
                       />
@@ -77,33 +82,12 @@ const Profile = () => {
                       )}
                     </div>
                     <div className="f-input">
-                      <label htmlFor="password">Password</label>
-                      <input
-                        type={passwordType ? 'password' : 'text'}
-                        id="password"
-                        placeholder="password"
-                        onChange={frm.handleChange}
-                        onBlur={frm.handleBlur}
-                      />
-                      <span onClick={() => setPasswordType(!passwordType)}>
-                        <i className="fa-solid fa-eye" />
-                      </span>
-                      {frm.touched.password && frm.errors.password && (
-                        <p className="f-error" id="passwordError">
-                          {frm.errors.password}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-6">
-                  <div className="f-right">
-                    <div className="f-input">
                       <label htmlFor="name">Name</label>
                       <input
                         type="text"
                         id="name"
                         placeholder="name"
+                        value={frm.values.name}
                         onChange={frm.handleChange}
                         onBlur={frm.handleBlur}
                       />
@@ -113,12 +97,17 @@ const Profile = () => {
                         </p>
                       )}
                     </div>
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <div className="f-right">
                     <div className="f-input">
                       <label htmlFor="phone">Phone</label>
                       <input
                         type="text"
                         id="phone"
                         placeholder="phone"
+                        value={frm.values.phone}
                         onChange={frm.handleChange}
                         onBlur={frm.handleBlur}
                       />
@@ -138,8 +127,8 @@ const Profile = () => {
                               name="gender"
                               id="male"
                               value={true}
+                              defaultChecked={gender === true}
                               onChange={frm.handleChange}
-                              defaultChecked
                             />
                             <label htmlFor="male">Male</label>
                           </div>
@@ -149,6 +138,7 @@ const Profile = () => {
                               name="gender"
                               id="female"
                               value={false}
+                              defaultChecked={gender === false}
                               onChange={frm.handleChange}
                             />
                             <label htmlFor="female">Female</label>
@@ -158,7 +148,7 @@ const Profile = () => {
                     </div>
                     <div className="btn-submit">
                       <button id="submitRegister" type="submit">
-                        Submit
+                        update
                       </button>
                     </div>
                   </div>

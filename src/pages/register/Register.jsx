@@ -52,11 +52,9 @@ const Register = () => {
       // password:yup.string().required('Password cannot be blank!').min(6,'tên lỗi').max(32,'tên lỗi').test('regex','tên lỗi')
     }),
     onSubmit: (values) => {
-      console.log(values);
       dispatch(registerApi(values));
     },
   });
-
   return (
     <section className="register">
       <div className="container">
