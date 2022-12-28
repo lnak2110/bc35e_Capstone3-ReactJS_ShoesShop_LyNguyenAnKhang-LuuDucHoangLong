@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import {
@@ -46,6 +46,7 @@ const Profile = () => {
     onSubmit: (values) => {
       console.log(values);
       dispatch(updateProfileApi(values));
+      dispatch(getProfileApi());
     },
   });
 
@@ -137,7 +138,7 @@ const Profile = () => {
                               name="gender"
                               id="female"
                               value={false}
-                              defaultChecked={gender === false}
+                              defaultChecked={gender !== true}
                               onChange={frm.handleChange}
                             />
                             <label htmlFor="female">Female</label>

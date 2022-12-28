@@ -27,18 +27,11 @@ const userReducer = createSlice({
     getProfileAction: (state, action) => {
       state.profile = action.payload;
     },
-    updateProfileAction: (state, action) => {
-      state.profile = action.payload;
-    },
   },
 });
 
-export const {
-  registerAction,
-  loginAction,
-  getProfileAction,
-  updateProfileAction,
-} = userReducer.actions;
+export const { registerAction, loginAction, getProfileAction } =
+  userReducer.actions;
 
 export default userReducer.reducer;
 
@@ -88,12 +81,9 @@ export const getProfileApi = () => {
 };
 
 export const updateProfileApi = (updatedData) => {
-  return async (dispatch) => {
+  return async () => {
     try {
-      const result = await http.post(`/api/Users/updateProfile`, updatedData);
-      console.log(result);
-      const action = updateProfileAction(result.data.content);
-      dispatch(action);
+      await http.post(`/api/Users/updateProfile`, updatedData);
     } catch (error) {
       console.log(error);
     }
