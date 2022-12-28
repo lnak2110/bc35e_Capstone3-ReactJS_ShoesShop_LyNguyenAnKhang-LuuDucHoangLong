@@ -5,7 +5,13 @@ import './assets/scss/main.scss';
 
 import { Provider } from 'react-redux';
 import { store } from './redux/configStore';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  unstable_HistoryRouter as HistoryRouter,
+} from 'react-router-dom';
 import HomeTemplate from './templates/homeTemplate/HomeTemplate';
 import Home from './pages/home/Home';
 import Detail from './pages/detail/Detail';
@@ -15,10 +21,14 @@ import Login from './pages/login/Login';
 import Cart from './pages/cart/Cart';
 import Search from './pages/search/Search';
 
+import { createBrowserHistory } from 'history';
+//cấu hình history
+export const history = createBrowserHistory();
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <HistoryRouter history={history}>
       <Routes>
         <Route path="" element={<HomeTemplate />}>
           <Route index element={<Home />}></Route>
@@ -33,6 +43,6 @@ root.render(
           <Route path="*" element={<Navigate to="" />}></Route>
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   </Provider>
 );

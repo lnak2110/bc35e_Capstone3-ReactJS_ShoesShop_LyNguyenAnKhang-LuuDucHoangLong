@@ -19,13 +19,11 @@ const Header = () => {
   const renderLogin = () => {
     if (userLogin) {
       return (
-        <li classname="nav-item">
-  <NavLink classname="nav-link text-light" to="/profile">
-    Hello {userLogin.email}
-  </NavLink>
-</li>
-
-
+        <li className="nav-item">
+          <NavLink className="nav-link text-light" to="/profile">
+            Hello {userLogin.email}
+          </NavLink>
+        </li>
       );
     }
     return (
