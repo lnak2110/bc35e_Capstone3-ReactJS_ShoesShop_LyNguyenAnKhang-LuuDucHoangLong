@@ -1,9 +1,175 @@
-import React from 'react'
+import { useFormik } from 'formik';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import * as yup from 'yup';
+import { getProfileApi } from '../../redux/reducer/userReducer';
 
 const Profile = () => {
-  return (
-    <div>Profile</div>
-  )
-}
+  const [passwordType, setPasswordType] = useState(true);
+  const dispatch = useDispatch();
 
-export default Profile
+  const frm = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
+      name: '',
+      phone: '',
+      gender: true,
+    },
+    enableReinitialize: true,
+    validationSchema: yup.object().shape({
+      email: yup
+        .string()
+        .trim()
+        .required('Email cannot be blank!')
+        .email('Email is invalid!'),
+      password: yup
+        .string()
+        .trim()
+        .required('Password cannot be blank!')
+        .min(6, 'Password must be between 6 - 10 characters!')
+        .max(10, 'Password must be between 6 - 10 characters!'),
+      name: yup.string().trim().required('Name cannot be blank!'),
+      phone: yup
+        .string()
+        .trim()
+        .required('Phone number cannot be blank!')
+        .matches(
+          /((^(\+84|84|0|0084){1})(3|5|7|8|9))+([0-9]{8})$/,
+          'Phone number is not valid!'
+        ),
+    }),
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+
+  dispatch(getProfileApi());
+  return (
+    <section className="profile">
+      <h1 className="profile__title my-4 py-3 ps-3">Profile</h1>
+      <div className="profile__info info">
+        <div className="row">
+          <div className="col-md-3 col-sm-12 d-flex justify-content-center">
+            <div className="info__avatar">
+              <img src="./img/avatar.png" alt="avatar" />
+            </div>
+          </div>
+          <div className="col-md-9 col-sm-12 ">
+            <form className="info__form" onSubmit={frm.handleSubmit}>
+              <div className="row">
+                <div className="col-lg-6">
+                  <div className="f-left">
+                    <div className="f-input">
+                      <label htmlFor="email">Email</label>
+                      <input
+                        type="email"
+                        id="email"
+                        placeholder="email"
+                        onChange={frm.handleChange}
+                        onBlur={frm.handleBlur}
+                      />
+                      {frm.touched.email && frm.errors.email && (
+                        <p className="f-error" id="emailError">
+                          {frm.errors.email}
+                        </p>
+                      )}
+                    </div>
+                    <div className="f-input">
+                      <label htmlFor="password">Password</label>
+                      <input
+                        type={passwordType ? 'password' : 'text'}
+                        id="password"
+                        placeholder="password"
+                        onChange={frm.handleChange}
+                        onBlur={frm.handleBlur}
+                      />
+                      <span onClick={() => setPasswordType(!passwordType)}>
+                        <i className="fa-solid fa-eye" />
+                      </span>
+                      {frm.touched.password && frm.errors.password && (
+                        <p className="f-error" id="passwordError">
+                          {frm.errors.password}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <div className="f-right">
+                    <div className="f-input">
+                      <label htmlFor="name">Name</label>
+                      <input
+                        type="text"
+                        id="name"
+                        placeholder="name"
+                        onChange={frm.handleChange}
+                        onBlur={frm.handleBlur}
+                      />
+                      {frm.touched.name && frm.errors.name && (
+                        <p className="f-error" id="nameError">
+                          {frm.errors.name}
+                        </p>
+                      )}
+                    </div>
+                    <div className="f-input">
+                      <label htmlFor="phone">Phone</label>
+                      <input
+                        type="text"
+                        id="phone"
+                        placeholder="phone"
+                        onChange={frm.handleChange}
+                        onBlur={frm.handleBlur}
+                      />
+                      {frm.touched.phone && frm.errors.phone && (
+                        <p className="f-error" id="phoneError">
+                          {frm.errors.phone}
+                        </p>
+                      )}
+                    </div>
+                    <div className="f-radio">
+                      <div className="content">
+                        <span className="gender-label">Gender</span>
+                        <div className="gender">
+                          <div className="male">
+                            <input
+                              type="radio"
+                              name="gender"
+                              id="male"
+                              value={true}
+                              onChange={frm.handleChange}
+                              defaultChecked
+                            />
+                            <label htmlFor="male">Male</label>
+                          </div>
+                          <div className="female">
+                            <input
+                              type="radio"
+                              name="gender"
+                              id="female"
+                              value={false}
+                              onChange={frm.handleChange}
+                            />
+                            <label htmlFor="female">Female</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="btn-submit">
+                      <button id="submitRegister" type="submit">
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Profile;
