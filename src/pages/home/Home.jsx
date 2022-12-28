@@ -14,6 +14,7 @@ const contentStyle = {
   height: "600px",
   color: "#999",
   lineHeight: "160px",
+  minHeight: "600px",
   textAlign: "left",
   background: "#fff",
 };
@@ -44,16 +45,21 @@ const Home = () => {
         {arrProduct.slice(0, 4).map((item, index) => {
           return (
             <div key={index}>
-              <div style={contentStyle} className="row carousel d-flex">
-                <div className="col-8 w-50">
+              <div
+                style={contentStyle}
+                className="row row-cols-1 row-cols-md-2 carousel"
+              >
+                <div className="col">
                   <img className="w-100" src={item.image} alt="" />
                 </div>
-                <div className="col-4 w-50">
-                  <h2>{item.name}</h2>
-                  <h3 className="home_description">{item.description}</h3>
-                  <button className="btn btn-success home_to_detail">
+                <div className="col carousel_right" style={{minHeight: "500px"}}>
+                  <div className="carousel_right_content">
+                    <h2>{item.name}</h2>
+                    <h3 className="home_description">{item.description}</h3>
+                    <button className="btn btn-success home_to_detail">
                       <NavLink to={`/detail/${item?.id}`}>Buy Now</NavLink>
-                  </button>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -62,10 +68,10 @@ const Home = () => {
       </Carousel>
       <div className="container">
         <h3>Product Feature</h3>
-        <div className="row">
+        <div className="row row-cols-1 row-cols-md-3">
           {arrProduct.map((prod, idx) => {
             return (
-              <div className="col-4" key={prod.id}>
+              <div className="col" key={prod.id}>
                 <ShoesCard prod={prod} />
               </div>
             );

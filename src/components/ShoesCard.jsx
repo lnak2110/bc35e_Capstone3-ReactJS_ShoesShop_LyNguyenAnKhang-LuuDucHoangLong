@@ -5,10 +5,9 @@ const ShoesCard = (props) => {
   const { prod } = props;
 
   return (
-    <div className="container">
       <div className="card mb-3">
         <img src={prod?.image} alt="" />
-          <img src="./img/unlike.png" alt="" className="like" />
+        <img src="./img/unlike.png" alt="" className="like" />
         <div className="card-body">
           <h3>
             {prod?.name.length > 25
@@ -25,7 +24,6 @@ const ShoesCard = (props) => {
           <span className="btn btn-light price">$ {prod?.price}</span>
         </div>
       </div>
-    </div>
   );
 };
 
