@@ -10,7 +10,7 @@ import {
 const Profile = () => {
   const { profile } = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
-  // console.log(profile);
+  console.log(profile);
 
   useEffect(() => {
     dispatch(getProfileApi());
@@ -48,7 +48,6 @@ const Profile = () => {
       dispatch(updateProfileApi(values));
     },
   });
-  console.log(gender === true);
 
   return (
     <section className="profile">
