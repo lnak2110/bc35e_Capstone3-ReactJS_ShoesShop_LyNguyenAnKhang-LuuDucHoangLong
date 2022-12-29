@@ -2,6 +2,7 @@ import { useFormik } from 'formik';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
+import OrderTable from '../../components/OrderTable';
 import {
   getProfileApi,
   updateProfileApi,
@@ -47,7 +48,6 @@ const Profile = () => {
       dispatch(getProfileApi());
     },
   });
-  console.log(profile?.ordersHistory);
   return (
     <section className="profile">
       <h1 className="profile__title my-4 py-3 ps-3">Profile</h1>
@@ -158,6 +158,11 @@ const Profile = () => {
       </div>
       <div className="order">
         <h2 className="order-title">Order history</h2>
+        <div className="order-tables">
+          {profile?.ordersHistory?.map((order) => (
+            <OrderTable key={order.id} order={order} />
+          ))}
+        </div>
       </div>
     </section>
   );
