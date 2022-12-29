@@ -8,6 +8,12 @@
   &__info {
     max-width: 96%;
     margin: 0 auto;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $gray-1;
+  }
+
+  .info__avatar img {
+    width: 100%;
   }
 
   .f-input {
@@ -117,6 +123,16 @@
       @include textStyle($fs-2, $fw-3, $white-1);
       border: none;
       cursor: pointer;
+    }
+  }
+
+  .order {
+    max-width: 96%;
+    margin: 0 auto;
+    padding-top: 20px;
+
+    &-title {
+      @include textStyle($fs-8, $fw-2, $purple-2);
     }
   }
 }

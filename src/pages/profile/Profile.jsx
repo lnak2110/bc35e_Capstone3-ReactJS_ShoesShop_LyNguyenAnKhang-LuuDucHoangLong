@@ -16,14 +16,12 @@ const Profile = () => {
     dispatch(getProfileApi());
   }, []);
 
-  const { email, name, phone, gender } = profile || '';
-
   const frm = useFormik({
     initialValues: {
-      email: email || '',
-      name: name || '',
-      phone: phone || '',
-      gender: gender,
+      email: profile?.email || '',
+      name: profile?.name || '',
+      phone: profile?.phone || '',
+      gender: profile?.gender || true,
     },
     enableReinitialize: true,
     validationSchema: yup.object().shape({
@@ -49,7 +47,7 @@ const Profile = () => {
       dispatch(getProfileApi());
     },
   });
-
+  console.log(profile?.ordersHistory);
   return (
     <section className="profile">
       <h1 className="profile__title my-4 py-3 ps-3">Profile</h1>
@@ -57,7 +55,7 @@ const Profile = () => {
         <div className="row">
           <div className="col-md-3 col-sm-12 d-flex justify-content-center">
             <div className="info__avatar">
-              <img src="./img/avatar.png" alt="avatar" />
+              <img src={profile?.avatar || './img/avatar.png'} alt="avatar" />
             </div>
           </div>
           <div className="col-md-9 col-sm-12 ">
@@ -127,7 +125,7 @@ const Profile = () => {
                               name="gender"
                               id="male"
                               value={true}
-                              defaultChecked={gender === true}
+                              defaultChecked={profile?.gender === true}
                               onChange={frm.handleChange}
                             />
                             <label htmlFor="male">Male</label>
@@ -138,7 +136,7 @@ const Profile = () => {
                               name="gender"
                               id="female"
                               value={false}
-                              defaultChecked={gender !== true}
+                              defaultChecked={profile?.gender === false}
                               onChange={frm.handleChange}
                             />
                             <label htmlFor="female">Female</label>
@@ -157,6 +155,9 @@ const Profile = () => {
             </form>
           </div>
         </div>
+      </div>
+      <div className="order">
+        <h2 className="order-title">Order history</h2>
       </div>
     </section>
   );
