@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import {
   http,
+  getStoreJson,
   setCookie,
   setStoreJson,
   TOKEN,
@@ -10,7 +11,7 @@ import {
 
 const initialState = {
   newUser: {},
-  userLogin: null,
+  userLogin: getStoreJson(USER_LOGIN) ? getStoreJson(USER_LOGIN) : null,
   profile: null,
 };
 
@@ -57,6 +58,7 @@ export const loginApi = (userLogin) => {
     try {
       const result = await http.post(`/api/Users/signin`, userLogin);
       const action = loginAction(result.data.content);
+      console.log(result);
       dispatch(action);
 
       setStoreJson(USER_LOGIN, result.data.content);

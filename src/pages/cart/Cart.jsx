@@ -5,6 +5,7 @@ import {
   calculateTotalsAction,
   changeProductQuantityAction,
   deleteProductAction,
+  submitOrderApi,
 } from '../../redux/reducer/cartReducer';
 
 const Cart = () => {
@@ -27,6 +28,22 @@ const Cart = () => {
 
   const changeProductQuantity = (id, num) => {
     dispatch(changeProductQuantityAction({ id, num }));
+  };
+
+  const submitOrder = (products, email) => {
+    const orderDetail = products.map((product) => ({
+      productId: product.id,
+      quantity: product.amount,
+    }));
+
+    dispatch(
+      submitOrderApi({
+        orderDetail,
+        email,
+      })
+    );
+
+    window.location.reload();
   };
 
   return (
@@ -107,7 +124,12 @@ const Cart = () => {
                   <td className="align-middle">{cartAmount}</td>
                   <td className="align-middle">$ {cartTotalPrice}</td>
                   <td className="align-middle">
-                    <button className="btn-order">submit order</button>
+                    <button
+                      className="btn-order"
+                      onClick={() => submitOrder(cartProducts, userLogin.email)}
+                    >
+                      submit order
+                    </button>
                   </td>
                 </tr>
               </tbody>

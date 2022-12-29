@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { http } from '../../utils/config';
 
 const initialState = {
   cartProducts: [],
@@ -71,3 +72,13 @@ export const {
 } = cartReducer.actions;
 
 export default cartReducer.reducer;
+
+export const submitOrderApi = (order) => {
+  return async () => {
+    try {
+      await http.post(`/api/Users/order`, order);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
