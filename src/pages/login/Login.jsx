@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import {useFormik} from 'formik';
-import * as yup from 'yup'
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 import { loginApi } from '../../redux/reducer/userReducer';
 import { useDispatch } from 'react-redux';
 
@@ -10,17 +10,17 @@ const Login = () => {
   const frm = useFormik({
     initialValues: {
       email: '',
-      password: ''
+      password: '',
     },
     validationSchema: yup.object().shape({
-      email: yup.string().email('Email is invalid')
+      email: yup.string().email('Email is invalid'),
     }),
     onSubmit: (values) => {
       console.log(values);
       const actionAsync = loginApi(values);
-      dispatch(actionAsync)
-    }
-  })
+      dispatch(actionAsync);
+    },
+  });
   return (
     <div>
       <div className="container login">
@@ -51,12 +51,13 @@ const Login = () => {
               id="exampleInputPassword1"
               name="password"
               placeholder="password"
+              autoComplete="off"
               onChange={frm.handleChange}
               onBlur={frm.handleBlur}
             />
           </div>
           <div className="form-group">
-            <NavLink to="/register" className={"reg_nav"}>
+            <NavLink to="/register" className={'reg_nav'}>
               Register Now?
             </NavLink>
             <button type="submit" className="btn btn-primary login_btn">

@@ -92,6 +92,7 @@ http.interceptors.response.use(
     return res;
   },
   (err) => {
+    console.log(err.response);
     //Bắt lỗi 400 hoặc 404
     if (err.response?.status === 400 || err.response?.status === 404) {
       //Lỗi do tham số => backend trả về 400 hoặc 404 mình sẽ xử lý
