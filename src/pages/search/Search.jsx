@@ -1,36 +1,31 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import {
-  getAllProductApi,
-  getProductAction,
-} from "../../redux/reducer/productReducer";
-import ShoesCard from "../../components/ShoesCard";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductByKeywordApi } from '../../redux/reducer/productReducer';
+import ShoesCard from '../../components/ShoesCard';
+import { useSearchParams } from 'react-router-dom';
+import { useFormik } from 'formik';
 
 const Search = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { productsSearch } = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
-  const { arrProduct } = useSelector((state) => state.productReducer);
-  const { productSearch } = useSelector((state) => state.productReducer);
 
-  const handleChange = (evt) => {
-    dispatch({ searchTerm: evt.target.value });
-  };
+  let keywordOnUrl = searchParams.get('k');
 
-  const getSearchProduct = async () => {
-    const action2 = getAllProductApi;
-    dispatch(action2);
-    arrProduct.map((prod, idx) => {
-      if (this.searchTerm === prod.name) {
-        return (
-          <div className="col" key={prod.id}>
-            <ShoesCard prod={prod} />
-          </div>
-        );
-      }
-      return;
-    });
-  };
+  const frm = useFormik({
+    initialValues: {
+      keyword: '',
+    },
+    onSubmit: (values) => {
+      setSearchParams({
+        k: values.keyword,
+      });
+    },
+  });
+
+  useEffect(() => {
+    dispatch(getProductByKeywordApi(keywordOnUrl));
+  }, [keywordOnUrl]);
 
   return (
     <div className="search">
@@ -38,7 +33,7 @@ const Search = () => {
         <div className="row">
           <div className="col-8">
             <div className="search_form">
-              <form className="pt-5">
+              <form className="pt-5" onSubmit={frm.handleSubmit}>
                 <div className="form-group">
                   <label htmlFor="exampleInputEmail1">Search</label>
                   <div className="form-inline">
@@ -46,17 +41,12 @@ const Search = () => {
                       type="text"
                       className="form-control"
                       id="searchForm"
+                      name="keyword"
                       aria-describedby="emailHelp"
-                      value={productSearch.searchTerm}
-                      onChange={handleChange}
+                      value={frm.values.keyword}
+                      onChange={frm.handleChange}
                     />
-                    <button
-                      type="submit"
-                      className="btn btn-primary"
-                      onClick={() => {
-                        this.props.onSearch(this.state.searchTerm);
-                      }}
-                    >
+                    <button type="submit" className="btn btn-primary">
                       Search
                     </button>
                   </div>
@@ -82,14 +72,20 @@ const Search = () => {
                 id="searchForm"
                 aria-describedby="emailHelp"
               >
-                <option value="dec">Descend</option>
-                <option value="asc">Ascend</option>
+                <option value="dec">Descending</option>
+                <option value="asc">Ascending</option>
               </select>
             </div>
           </form>
         </div>
         <div className="result">
-          <div className="row row-cols-1 row-cols-md-3">{getSearchProduct}</div>
+          <div className="row row-cols-1 row-cols-md-3">
+            {productsSearch.map((prod) => (
+              <div className="col" key={prod.id}>
+                <ShoesCard prod={prod} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

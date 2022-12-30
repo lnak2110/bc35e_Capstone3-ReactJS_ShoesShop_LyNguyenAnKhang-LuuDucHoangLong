@@ -41,6 +41,10 @@
       @include textStyle($fs-3, $fw-2, $black-1);
       border: none;
       outline: none;
+
+      &[disabled] {
+        cursor: not-allowed;
+      }
     }
 
     span {
