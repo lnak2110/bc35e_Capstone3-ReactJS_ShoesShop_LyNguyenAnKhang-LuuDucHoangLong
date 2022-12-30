@@ -72,6 +72,7 @@ const Profile = () => {
                         value={frm.values.email}
                         onChange={frm.handleChange}
                         onBlur={frm.handleBlur}
+                        disabled
                       />
                       {frm.touched.email && frm.errors.email && (
                         <p className="f-error" id="emailError">

@@ -1,25 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { http } from '../../utils/config';
 
 const initialState = {
   arrProduct: [
     {
       id: 1,
-      name: "nike 1",
+      name: 'nike 1',
       price: 1000,
-      image: "https://picsum.photos/id/1/200/200",
+      image: 'https://picsum.photos/id/1/200/200',
     },
   ],
   productDetail: {
     id: 1,
-    name: "nike 1",
+    name: 'nike 1',
     price: 1000,
-    image: "https://picsum.photos/id/1/200/200",
+    image: 'https://picsum.photos/id/1/200/200',
   },
   productAmount: 1,
-  productSearch: {
-    searchTerm: "",
-  },
+  productsSearch: [],
 };
 
 const productReducer = createSlice({
@@ -40,6 +39,9 @@ const productReducer = createSlice({
       state.productAmount += payload;
     },
     resetProductAmountAction: (state) => ({ ...state, productAmount: 1 }),
+    getProductByKeywordAction: (state, action) => {
+      state.productsSearch = action.payload;
+    },
   },
 });
 
@@ -48,6 +50,7 @@ export const {
   getProductDetailAction,
   changeProductAmountAction,
   resetProductAmountAction,
+  getProductByKeywordAction,
 } = productReducer.actions;
 
 export default productReducer.reducer;
@@ -72,5 +75,18 @@ export const getProductByIdApi = (id) => {
     // Sau khi có được dữ liệu từ API, dispatch lần 2 lên reducer
     const action = getProductDetailAction(result.data.content);
     dispatch(action);
+  };
+};
+
+export const getProductByKeywordApi = (keywordOnUrl) => {
+  return async (dispatch) => {
+    try {
+      if (keywordOnUrl) {
+        const result = await http.get(`/api/Product?keyword=${keywordOnUrl}`);
+        dispatch(getProductByKeywordAction(result.data.content));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
