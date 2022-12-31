@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState, setParams } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductByKeywordApi } from '../../redux/reducer/productReducer';
+import {
+  getProductByKeywordApi,
+  sortProductByOption,
+} from "../../redux/reducer/productReducer";
 import ShoesCard from '../../components/ShoesCard';
-import { useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { productsSearch } = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
+  // const [searchResult, getProductByKeywordApi] = useState([]);
 
   let keywordOnUrl = searchParams.get('k');
+  // const sortby = useParams.get("sortby");
 
   const frm = useFormik({
     initialValues: {
@@ -26,6 +31,35 @@ const Search = () => {
   useEffect(() => {
     dispatch(getProductByKeywordApi(keywordOnUrl));
   }, [keywordOnUrl]);
+
+  // const sortBy = (value, arr) => {
+  //   switch (value) {
+  //     case "des": {
+  //       getProductByKeywordApi(arr.sort((a, b) => a.price - b.price));
+  //       break;
+  //     }
+  //     case "asc": {
+  //       getProductByKeywordApi(arr.sort((a, b) => b.price - a.price));
+  //       break;
+  //     }
+  //     default:
+  //       return;
+  //   }
+  // };
+
+  // const sortHandle = (e) => {
+  //   e.preventDefault();
+  //   const {value} = e.target;
+  //   setParams({
+  //     ...(keywordOnUrl && { keyword: keywordOnUrl }),
+  //     ...(value !== "" && { sortby: value }),
+  //   });
+  //   sortBy(value, searchResult);
+  // }
+
+  //  useMemo(() => {
+  //    dispatch(sortProductByOption(keywordOnUrl, sortby));
+  //  }, [keywordOnUrl, sortby]);
 
   return (
     <div className="search">
@@ -71,9 +105,15 @@ const Search = () => {
                 className="form-control"
                 id="searchForm"
                 aria-describedby="emailHelp"
+                /* onChange={(e) => {
+                  sortHandle(e);
+                }}
+                defaultValue={useParams.get('sortby')} */
               >
-                <option value="dec">Descending</option>
-                <option value="asc">Ascending</option>
+                <option value="des">Descending</option>
+                <option value="asc">
+                  Ascending
+                </option>
               </select>
             </div>
           </form>
