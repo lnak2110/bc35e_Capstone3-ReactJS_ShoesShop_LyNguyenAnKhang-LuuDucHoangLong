@@ -22,7 +22,7 @@ const Profile = () => {
       email: profile?.email || '',
       name: profile?.name || '',
       phone: profile?.phone || '',
-      gender: profile?.gender || true,
+      gender: profile?.gender.toString() || 'true',
     },
     enableReinitialize: true,
     validationSchema: yup.object().shape({
@@ -46,6 +46,7 @@ const Profile = () => {
       console.log(values);
       dispatch(updateProfileApi(values));
       dispatch(getProfileApi());
+      window.location.reload();
     },
   });
   return (
@@ -126,7 +127,7 @@ const Profile = () => {
                               name="gender"
                               id="male"
                               value={true}
-                              defaultChecked={profile?.gender === true}
+                              checked={frm.values.gender === 'true'}
                               onChange={frm.handleChange}
                             />
                             <label htmlFor="male">Male</label>
@@ -137,7 +138,7 @@ const Profile = () => {
                               name="gender"
                               id="female"
                               value={false}
-                              defaultChecked={profile?.gender === false}
+                              checked={frm.values.gender === 'false'}
                               onChange={frm.handleChange}
                             />
                             <label htmlFor="female">Female</label>
