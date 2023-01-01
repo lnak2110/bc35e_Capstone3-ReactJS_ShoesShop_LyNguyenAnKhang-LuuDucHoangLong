@@ -32,7 +32,7 @@ const Header = () => {
             onClick={() => {
               eraseStore(USER_LOGIN);
               eraseCookie(TOKEN);
-              window.location.reload();
+              window.location.href = '/';
             }}
           >
             Logout
