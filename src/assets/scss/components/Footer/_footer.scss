@@ -4,7 +4,7 @@ footer{
         padding-bottom: 5%;
         background-color: #F5F5F5;
     .row {
-        .col-4 {
+        .col {
             padding-left: 10%;
             h3 {
                 font-weight: 600;
@@ -15,7 +15,7 @@ footer{
             }
         }
 
-        .col-4:nth-child(2){
+        .col:nth-child(2){
             border-left: solid 1px $black-3;
             border-right: solid 1px $black-3;;
         }
