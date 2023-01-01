@@ -63,6 +63,8 @@ export const loginApi = (userLogin) => {
 
       setStoreJson(USER_LOGIN, result.data.content);
       setCookie(TOKEN, result.data.content.accessToken);
+
+      window.location.href = '/';
     } catch (error) {
       console.log(error);
     }
@@ -86,6 +88,7 @@ export const updateProfileApi = (updatedData) => {
   return async () => {
     try {
       await http.post(`/api/Users/updateProfile`, updatedData);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }

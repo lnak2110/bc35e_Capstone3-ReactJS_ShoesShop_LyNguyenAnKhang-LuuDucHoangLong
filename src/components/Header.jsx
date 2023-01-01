@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { calculateTotalsAction } from '../redux/reducer/cartReducer';
+import { eraseCookie, eraseStore, TOKEN, USER_LOGIN } from '../utils/config';
 
 const Header = () => {
   const { userLogin } = useSelector((state) => state.userReducer);
@@ -19,11 +20,24 @@ const Header = () => {
   const renderLogin = () => {
     if (userLogin) {
       return (
-        <li className="nav-item">
-          <NavLink className="nav-link text-light" to="/profile">
-            Hello {userLogin.email}
-          </NavLink>
-        </li>
+        <>
+          <li className="nav-item">
+            <NavLink className="nav-link text-light" to="/profile">
+              Hello {userLogin.email}
+            </NavLink>
+          </li>
+          <span
+            className="mx-2 text-light d-flex align-items-center"
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              eraseStore(USER_LOGIN);
+              eraseCookie(TOKEN);
+              window.location.reload();
+            }}
+          >
+            Logout
+          </span>
+        </>
       );
     }
     return (
@@ -70,15 +84,17 @@ const Header = () => {
               </NavLink>
             </li>
             {renderLogin()}
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active"
-                aria-current="page"
-                to="/register"
-              >
-                Register
-              </NavLink>
-            </li>
+            {!userLogin && (
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/register"
+                >
+                  Register
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </div>
