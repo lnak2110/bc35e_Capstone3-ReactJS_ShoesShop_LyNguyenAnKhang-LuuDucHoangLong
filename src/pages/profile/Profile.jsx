@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
-import OrderTable from '../../components/OrderTable';
+import Orders from '../../components/Orders';
 import {
   getProfileApi,
   updateProfileApi,
@@ -157,14 +157,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <div className="order">
-        <h2 className="order-title">Order history</h2>
-        <div className="order-tables">
-          {profile?.ordersHistory?.map((order) => (
-            <OrderTable key={order.id} order={order} />
-          ))}
-        </div>
-      </div>
+      <Orders orders={profile?.ordersHistory} />
     </section>
   );
 };

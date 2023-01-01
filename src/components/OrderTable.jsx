@@ -38,6 +38,7 @@ const OrderTable = ({ order }) => {
               <td className="align-middle">
                 <span className="quantity py-1 mx-3">{product.amount}</span>
               </td>
+              <td className="align-middle"></td>
             </tr>
           ))}
         </tbody>

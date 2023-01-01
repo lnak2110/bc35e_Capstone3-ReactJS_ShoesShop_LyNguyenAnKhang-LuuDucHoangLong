@@ -84,6 +84,7 @@ const Register = () => {
                     type={passwordType.password ? 'password' : 'text'}
                     id="password"
                     placeholder="password"
+                    autoComplete="off"
                     onChange={frm.handleChange}
                     onBlur={frm.handleBlur}
                   />
@@ -109,6 +110,7 @@ const Register = () => {
                     type={passwordType.confirmPassword ? 'password' : 'text'}
                     id="passwordConfirm"
                     placeholder="password confirm"
+                    autoComplete="off"
                     onChange={frm.handleChange}
                     onBlur={frm.handleBlur}
                   />
