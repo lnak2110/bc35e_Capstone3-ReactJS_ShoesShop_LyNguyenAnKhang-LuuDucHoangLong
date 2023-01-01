@@ -46,7 +46,6 @@ const Profile = () => {
       console.log(values);
       dispatch(updateProfileApi(values));
       dispatch(getProfileApi());
-      window.location.reload();
     },
   });
   return (

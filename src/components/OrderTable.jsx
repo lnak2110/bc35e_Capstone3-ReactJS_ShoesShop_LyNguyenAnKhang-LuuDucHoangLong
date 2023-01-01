@@ -14,7 +14,7 @@ const OrderTable = ({ order }) => {
       <table className="table text-center">
         <thead>
           <tr className="table-secondary">
-            <th>ID</th>
+            <th>Order ID</th>
             <th>Image</th>
             <th>Name</th>
             <th>Price</th>
@@ -25,7 +25,7 @@ const OrderTable = ({ order }) => {
         <tbody>
           {order.orderDetail.map((product) => (
             <tr key={product.name} className="align-middle">
-              <td>{product.id}</td>
+              <td>{order.id}</td>
               <td style={{ width: 120 }}>
                 <img
                   className="img-fluid"
