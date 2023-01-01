@@ -12,10 +12,11 @@ const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { productsSearch } = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
-  // const [searchResult, getProductByKeywordApi] = useState([]);
 
   let keywordOnUrl = searchParams.get('k');
-  // const sortby = useParams.get("sortby");
+  
+  const [productsPriceSort, setProductsPriceSort] = useState([]);
+  const [isDescent, setIsDescent] = useState(true);
 
   const frm = useFormik({
     initialValues: {
@@ -30,36 +31,21 @@ const Search = () => {
 
   useEffect(() => {
     dispatch(getProductByKeywordApi(keywordOnUrl));
-  }, [keywordOnUrl]);
+  }, [keywordOnUrl, isDescent]);
 
-  // const sortBy = (value, arr) => {
-  //   switch (value) {
-  //     case "des": {
-  //       getProductByKeywordApi(arr.sort((a, b) => a.price - b.price));
-  //       break;
-  //     }
-  //     case "asc": {
-  //       getProductByKeywordApi(arr.sort((a, b) => b.price - a.price));
-  //       break;
-  //     }
-  //     default:
-  //       return;
-  //   }
-  // };
-
-  // const sortHandle = (e) => {
-  //   e.preventDefault();
-  //   const {value} = e.target;
-  //   setParams({
-  //     ...(keywordOnUrl && { keyword: keywordOnUrl }),
-  //     ...(value !== "" && { sortby: value }),
-  //   });
-  //   sortBy(value, searchResult);
-  // }
-
-  //  useMemo(() => {
-  //    dispatch(sortProductByOption(keywordOnUrl, sortby));
-  //  }, [keywordOnUrl, sortby]);
+  useMemo(() => {
+    if (productsSearch.length > 0) {
+      const productClone = [...productsSearch];
+      const newProductList = isDescent
+        ? productClone.sort(function (a, b) {
+            return a.price - b.price;
+          })
+        : productClone.sort(function (a, b) {
+            return b.price - a.price;
+          });
+      setProductsPriceSort(newProductList);
+    }
+  }, [productsSearch]);
 
   return (
     <div className="search">
@@ -105,22 +91,20 @@ const Search = () => {
                 className="form-control"
                 id="searchForm"
                 aria-describedby="emailHelp"
-                /* onChange={(e) => {
-                  sortHandle(e);
+                onChange={(e) => {
+                  if (e.target.value === "des") setIsDescent(true);
+                  else setIsDescent(false);
                 }}
-                defaultValue={useParams.get('sortby')} */
               >
                 <option value="des">Descending</option>
-                <option value="asc">
-                  Ascending
-                </option>
+                <option value="asc">Ascending</option>
               </select>
             </div>
           </form>
         </div>
         <div className="result">
           <div className="row row-cols-1 row-cols-md-3">
-            {productsSearch.map((prod) => (
+            {productsPriceSort.map((prod) => (
               <div className="col" key={prod.id}>
                 <ShoesCard prod={prod} />
               </div>

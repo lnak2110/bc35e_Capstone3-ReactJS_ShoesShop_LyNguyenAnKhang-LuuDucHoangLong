@@ -19,7 +19,6 @@ const initialState = {
   },
   productAmount: 1,
   productsSearch: [],
-  // sortProduct: [],
 };
 
 const productReducer = createSlice({
@@ -43,9 +42,6 @@ const productReducer = createSlice({
     getProductByKeywordAction: (state, action) => {
       state.productsSearch = action.payload;
     },
-    // sortProductByOption: (state, action) => {
-    //   state.sortProduct = action.payload;
-    // }
   },
 });
 
@@ -94,16 +90,3 @@ export const getProductByKeywordApi = (keywordOnUrl) => {
     }
   };
 };
-
-// export const sortProductByOption = (keywordOnUrl, sortby) => {
-//   return async (dispatch) => {
-//     try {
-//       if (sortby && keywordOnUrl) {
-//         const result = await http.get(`/api/Product?keyword=${keywordOnUrl}&&${sortby}`);
-//         dispatch(sortProductByOption(result.data.content));
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// };
