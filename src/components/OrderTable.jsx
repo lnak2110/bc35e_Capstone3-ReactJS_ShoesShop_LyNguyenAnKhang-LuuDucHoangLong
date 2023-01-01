@@ -18,8 +18,6 @@ const OrderTable = ({ order }) => {
             <th>Image</th>
             <th>Name</th>
             <th>Price</th>
-            <th>Quantity</th>
-            <th>Total</th>
           </tr>
         </thead>
         <tbody>
@@ -35,10 +33,6 @@ const OrderTable = ({ order }) => {
               </td>
               <td className="align-middle">{product.name}</td>
               <td className="align-middle">$ {product.price}</td>
-              <td className="align-middle">
-                <span className="quantity py-1 mx-3">{product.amount}</span>
-              </td>
-              <td className="align-middle"></td>
             </tr>
           ))}
         </tbody>

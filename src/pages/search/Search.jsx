@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState, setParams } from "react";
+import React, { useEffect, useMemo, useState, setParams } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getProductByKeywordApi,
   sortProductByOption,
-} from "../../redux/reducer/productReducer";
+} from '../../redux/reducer/productReducer';
 import ShoesCard from '../../components/ShoesCard';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -14,7 +14,7 @@ const Search = () => {
   const dispatch = useDispatch();
 
   let keywordOnUrl = searchParams.get('k');
-  
+
   const [productsPriceSort, setProductsPriceSort] = useState([]);
   const [isDescent, setIsDescent] = useState(true);
 
@@ -38,10 +38,10 @@ const Search = () => {
       const productClone = [...productsSearch];
       const newProductList = isDescent
         ? productClone.sort(function (a, b) {
-            return a.price - b.price;
+            return b.price - a.price;
           })
         : productClone.sort(function (a, b) {
-            return b.price - a.price;
+            return a.price - b.price;
           });
       setProductsPriceSort(newProductList);
     }
@@ -92,7 +92,7 @@ const Search = () => {
                 id="searchForm"
                 aria-describedby="emailHelp"
                 onChange={(e) => {
-                  if (e.target.value === "des") setIsDescent(true);
+                  if (e.target.value === 'des') setIsDescent(true);
                   else setIsDescent(false);
                 }}
               >
