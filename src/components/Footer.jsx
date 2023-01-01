@@ -4,8 +4,8 @@ const Footer = () => {
   return (
     <footer>
       <div className="container">
-        <div className="row d-flex">
-          <div className="col-4">
+        <div className="row row-cols-1 row-cols-md-3">
+          <div className="col">
             <h3>GET HELP</h3>
             <ul>
               <li>Home</li>
@@ -14,7 +14,7 @@ const Footer = () => {
               <li>Contact</li>
             </ul>
           </div>
-          <div className="col-4">
+          <div className="col">
             <h3>SUPPORT</h3>
             <ul>
               <li>About</li>
@@ -23,7 +23,7 @@ const Footer = () => {
               <li>Phone</li>
             </ul>
           </div>
-          <div className="col-4">
+          <div className="col">
             <h3>REGISTER</h3>
             <ul>
               <li>Register</li>

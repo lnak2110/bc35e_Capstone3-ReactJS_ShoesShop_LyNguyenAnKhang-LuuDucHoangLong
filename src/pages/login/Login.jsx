@@ -22,7 +22,6 @@ const Login = () => {
     },
   });
   return (
-    <div>
       <div className="container login">
         <h1 className="mt-5 mb-5">Login</h1>
         <hr />
@@ -71,7 +70,6 @@ const Login = () => {
           </button>
         </div>
       </div>
-    </div>
   );
 };
 
