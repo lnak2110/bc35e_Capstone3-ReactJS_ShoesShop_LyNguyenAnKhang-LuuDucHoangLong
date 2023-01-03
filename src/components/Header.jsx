@@ -56,14 +56,14 @@ const Header = () => {
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon" />
         </button>
-        <div className="d-flex my-2 my-lg-0" id="navbarSupportedContent">
+        <div className="d-flex my-2 my-lg-0" id="navbarNavDropdown">
           <ul className="navbar-nav me-auto mb-2 my-lg-0">
             <li className="nav-item">
               <NavLink
