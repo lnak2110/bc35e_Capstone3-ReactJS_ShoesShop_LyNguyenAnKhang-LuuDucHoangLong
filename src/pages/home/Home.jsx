@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
-import { Carousel } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import React, { useEffect } from 'react';
+import { Carousel } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 import {
   getAllProductApi,
   getProductAction,
-} from "../../redux/reducer/productReducer";
-import ShoesCard from "../../components/ShoesCard";
-import { NavLink } from "react-router-dom";
+} from '../../redux/reducer/productReducer';
+import ShoesCard from '../../components/ShoesCard';
+import { NavLink } from 'react-router-dom';
 
 const contentStyle = {
   margin: 0,
-  height: "600px",
-  color: "#999",
-  lineHeight: "160px",
-  minHeight: "600px",
-  textAlign: "left",
-  background: "#fff",
+  height: '600px',
+  color: '#999',
+  lineHeight: '160px',
+  minHeight: '800px',
+  textAlign: 'left',
+  background: '#fff',
 };
 
 const Home = () => {
@@ -26,7 +26,7 @@ const Home = () => {
     console.log(currentSlide);
   };
 
-  console.log("arrProduct: ", arrProduct);
+  console.log('arrProduct: ', arrProduct);
 
   const dispatch = useDispatch();
 
@@ -41,7 +41,7 @@ const Home = () => {
 
   return (
     <>
-      <Carousel afterChange={onChange} autoplay={true} effect={"scroll"}>
+      <Carousel afterChange={onChange} autoplay={true} effect={'scroll'}>
         {arrProduct.slice(0, 4).map((item, index) => {
           return (
             <div key={index}>
@@ -49,10 +49,18 @@ const Home = () => {
                 style={contentStyle}
                 className="row row-cols-1 row-cols-md-2 carousel"
               >
-                <div className="col">
-                  <img className="w-100" src={item.image} alt="" />
+                <div className="col-sm-12 col-4">
+                  <img
+                    className="img-fluid"
+                    src={item.image}
+                    alt=""
+                    style={{ margin: '0 auto' }}
+                  />
                 </div>
-                <div className="col carousel_right" style={{minHeight: "500px"}}>
+                <div
+                  className="col-sm-12 col-8 carousel_right"
+                  style={{ minHeight: '500px' }}
+                >
                   <div className="carousel_right_content">
                     <h2>{item.name}</h2>
                     <h3 className="home_description">{item.description}</h3>
