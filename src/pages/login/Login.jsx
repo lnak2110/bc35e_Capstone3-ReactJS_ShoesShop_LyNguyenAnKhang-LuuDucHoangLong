@@ -86,7 +86,6 @@ const Login = () => {
           cssClass="btn btn-primary facebook_btn"
           icon="fa-facebook"
         />
-        ,
       </div>
     </div>
   );
