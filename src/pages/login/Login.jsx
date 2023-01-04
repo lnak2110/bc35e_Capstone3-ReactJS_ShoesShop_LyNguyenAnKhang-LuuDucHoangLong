@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { loginApi } from '../../redux/reducer/userReducer';
+import { loginApi, loginFacebookApi } from '../../redux/reducer/userReducer';
 import { useDispatch } from 'react-redux';
 import FacebookLogin from 'react-facebook-login';
 
@@ -25,6 +25,10 @@ const Login = () => {
 
   const responseFacebook = (res) => {
     console.log(res);
+    if(res?.accessToken){
+      const actionThunk = loginFacebookApi(res.accessToken);
+      dispatch(actionThunk);
+    }
   }
 
   return (
@@ -75,11 +79,11 @@ const Login = () => {
             <i className="fa-brands fa-facebook"></i> Continue with Facebook
           </button> */}
         <FacebookLogin
-          appId="1088597931155576"
+          appId="745316906504828"
           autoLoad={true}
           fields="name,email,picture"
           callback={responseFacebook}
-          cssClass="my-facebook-button-class"
+          cssClass="btn btn-primary facebook_btn"
           icon="fa-facebook"
         />
         ,
