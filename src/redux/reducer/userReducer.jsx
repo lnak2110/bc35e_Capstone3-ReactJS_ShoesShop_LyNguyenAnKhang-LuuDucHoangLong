@@ -101,3 +101,21 @@ export const updateProfileApi = (updatedData) => {
     }
   };
 };
+
+export const loginFacebookApi = (userLogin) => {
+  return async (dispatch) => {
+    try {
+      const result = await http.post(`/api/Users/facebooklogin`, userLogin);
+      const action = loginAction(result.data.content);
+      console.log(result);
+      dispatch(action);
+
+      setStoreJson(USER_LOGIN, result.data.content);
+      setCookie(TOKEN, result.data.content.accessToken);
+
+      window.location.href = "/";
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

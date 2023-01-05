@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { loginApi } from '../../redux/reducer/userReducer';
+import { loginApi, loginFacebookApi } from '../../redux/reducer/userReducer';
 import { useDispatch } from 'react-redux';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
@@ -25,7 +25,12 @@ const Login = () => {
 
   const responseFacebook = (res) => {
     console.log(res);
-  };
+    
+    if(res?.accessToken){
+      const actionThunk = loginFacebookApi(res.accessToken);
+      dispatch(actionThunk);
+    }
+  }
 
   return (
     <div className="container login">
