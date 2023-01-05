@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { loginApi, loginFacebookApi } from '../../redux/reducer/userReducer';
 import { useDispatch } from 'react-redux';
-import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -25,6 +25,7 @@ const Login = () => {
 
   const responseFacebook = (res) => {
     console.log(res);
+    
     if(res?.accessToken){
       const actionThunk = loginFacebookApi(res.accessToken);
       dispatch(actionThunk);
@@ -66,7 +67,7 @@ const Login = () => {
           />
         </div>
         <div className="form-group">
-          <NavLink to="/register" className={"reg_nav"}>
+          <NavLink to="/register" className={'reg_nav'}>
             Register Now?
           </NavLink>
           <button type="submit" className="btn btn-primary login_btn">
@@ -75,16 +76,17 @@ const Login = () => {
         </div>
       </form>
       <div className="social_login">
-        {/* <button type="submit" className="btn btn-primary">
-            <i className="fa-brands fa-facebook"></i> Continue with Facebook
-          </button> */}
         <FacebookLogin
-          appId="745316906504828"
-          autoLoad={true}
+          appId="1088597931155576"
+          autoLoad={false}
           fields="name,email,picture"
           callback={responseFacebook}
-          cssClass="btn btn-primary facebook_btn"
           icon="fa-facebook"
+          render={(renderProps) => (
+            <button onClick={renderProps.onClick} className="facebook_login">
+              <i className="fa-brands fa-facebook"></i> Continue with Facebook
+            </button>
+          )}
         />
       </div>
     </div>

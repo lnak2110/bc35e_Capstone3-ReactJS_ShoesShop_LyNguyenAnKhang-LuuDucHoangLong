@@ -44,11 +44,18 @@ export const registerApi = (newUserData) => {
         newUserData
       );
       console.log(result);
-      const action = registerAction(result.data.content);
 
-      dispatch(action);
+      if (result?.status === 200) {
+        const action = registerAction(result.data.content);
+        dispatch(action);
+        window.confirm('Successful register!');
+        window.location.href = '/login';
+      }
     } catch (error) {
       console.log(error);
+      if (error.response?.status === 400) {
+        window.confirm('Email is already existed!');
+      }
     }
   };
 };
