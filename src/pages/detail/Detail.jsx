@@ -48,11 +48,11 @@ const Detail = () => {
 
   return (
     <div className="container detail">
-      <div className="row mt-5">
-        <div className="col-4">
+      <div className="row row-cols-1 row-cols-md-2 mt-5">
+        <div className="col-12 col-sm-12 col-md-5">
           <img src={productDetail?.image} alt="" />
         </div>
-        <div className="col-8 product_info">
+        <div className="col-12 col-sm-12 col-md-7 product_info">
           <h3>{productDetail?.name}</h3>
           <p className="w-50">{productDetail?.description}</p>
           <p className="available_size">Available Size</p>
@@ -86,10 +86,10 @@ const Detail = () => {
       </div>
       <div className="mt-3 text-center">
         <h1 className="mb-5">- Related Product -</h1>
-        <div className="row">
+        <div className="row row-cols-1 row-cols-md-3">
           {productDetail?.relatedProducts?.map((item, index) => {
             return (
-              <div className="col-4" key={index}>
+              <div className="col" key={index}>
                 <ShoesCard prod={item} />
               </div>
             );
