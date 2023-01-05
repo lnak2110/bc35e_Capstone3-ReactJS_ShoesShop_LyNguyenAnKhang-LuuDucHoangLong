@@ -10,11 +10,12 @@ import ShoesCard from '../../components/ShoesCard';
 import { NavLink } from 'react-router-dom';
 
 const contentStyle = {
+  paddingTop: '100px',
   margin: 0,
-  height: '600px',
+  height: '700px',
   color: '#999',
   lineHeight: '160px',
-  minHeight: '800px',
+  minHeight: '700px',
   textAlign: 'left',
   background: '#fff',
 };
@@ -49,7 +50,7 @@ const Home = () => {
                 style={contentStyle}
                 className="row row-cols-1 row-cols-md-2 carousel"
               >
-                <div className="col-sm-12 col-4">
+                <div className="col-12 col-sm-12 col-md-5 carousel-img">
                   <img
                     className="img-fluid"
                     src={item.image}
@@ -58,7 +59,7 @@ const Home = () => {
                   />
                 </div>
                 <div
-                  className="col-sm-12 col-8 carousel_right"
+                  className="col-12 col-sm-12 col-md-7 carousel_right"
                   style={{ minHeight: '500px' }}
                 >
                   <div className="carousel_right_content">
@@ -74,7 +75,7 @@ const Home = () => {
           );
         })}
       </Carousel>
-      <div className="container">
+      <div className="container product-feature">
         <h3>Product Feature</h3>
         <div className="row row-cols-1 row-cols-md-3">
           {arrProduct.map((prod, idx) => {
