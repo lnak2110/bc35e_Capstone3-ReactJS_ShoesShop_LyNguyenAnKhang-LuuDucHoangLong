@@ -50,7 +50,7 @@ const Detail = () => {
     <div className="container detail">
       <div className="row row-cols-1 row-cols-md-2 mt-5">
         <div className="col-12 col-sm-12 col-md-5">
-          <img src={productDetail?.image} alt="" />
+          <img src={productDetail?.image} alt="" className="img-fluid" />
         </div>
         <div className="col-12 col-sm-12 col-md-7 product_info">
           <h3>{productDetail?.name}</h3>
