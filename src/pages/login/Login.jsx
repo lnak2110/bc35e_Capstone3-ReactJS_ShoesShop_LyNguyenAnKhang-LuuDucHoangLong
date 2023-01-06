@@ -25,12 +25,12 @@ const Login = () => {
 
   const responseFacebook = (res) => {
     console.log(res);
-    
-    if(res?.accessToken){
-      const actionThunk = loginFacebookApi(res.accessToken);
+
+    if (res?.accessToken) {
+      const actionThunk = loginFacebookApi({ facebookToken: res.accessToken });
       dispatch(actionThunk);
     }
-  }
+  };
 
   return (
     <div className="container login">
@@ -77,7 +77,7 @@ const Login = () => {
       </form>
       <div className="social_login">
         <FacebookLogin
-          appId="1088597931155576"
+          appId="1026190204826662"
           autoLoad={false}
           fields="name,email,picture"
           callback={responseFacebook}

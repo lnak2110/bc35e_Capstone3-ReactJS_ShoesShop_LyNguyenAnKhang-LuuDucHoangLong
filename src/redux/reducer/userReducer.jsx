@@ -105,15 +105,23 @@ export const updateProfileApi = (updatedData) => {
 export const loginFacebookApi = (userLogin) => {
   return async (dispatch) => {
     try {
-      const result = await http.post(`/api/Users/facebooklogin`, userLogin);
-      const action = loginAction(result.data.content);
+      const result = await axios.post(
+        `https://shop.cyberlearn.vn/api/Users/facebooklogin`,
+        userLogin,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
       console.log(result);
-      dispatch(action);
-
-      setStoreJson(USER_LOGIN, result.data.content);
-      setCookie(TOKEN, result.data.content.accessToken);
-
-      window.location.href = "/";
+      if (result?.data?.statusCode === 200) {
+        const action = registerAction(result.data.content);
+        dispatch(action);
+        setStoreJson(USER_LOGIN, result.data.content);
+        setCookie(TOKEN, result.data.content.accessToken);
+        window.location.href = '/';
+      }
+      // const action = loginAction(result.data.content);
+      // dispatch(action);
     } catch (error) {
       console.log(error);
     }
