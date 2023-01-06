@@ -30,6 +30,9 @@ const Header = () => {
             className="mx-2 text-light d-flex align-items-center"
             style={{ cursor: 'pointer' }}
             onClick={() => {
+              if (localStorage.getItem('fblst_1026190204826662')) {
+                eraseStore('fblst_1026190204826662');
+              }
               eraseStore(USER_LOGIN);
               eraseCookie(TOKEN);
               window.location.href = '/';
