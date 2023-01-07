@@ -66,8 +66,11 @@ const Header = () => {
         >
           <span className="navbar-toggler-icon" />
         </button>
-        <div className="d-flex my-2 my-lg-0" id="navbarNavDropdown">
-          <ul className="navbar-nav me-auto mb-2 my-lg-0">
+        <div
+          className="my-2 my-lg-0 collapse navbar-collapse"
+          id="navbarNavDropdown"
+        >
+          <ul className="navbar-nav ms-auto mb-2 my-lg-0">
             <li className="nav-item">
               <NavLink
                 className="nav-link active"
